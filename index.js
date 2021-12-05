@@ -8,24 +8,23 @@ import crypto from "crypto";
 
 const app = express();
 
-const img = multer({
-  dest: "./img",
-});
+
 
 app
   .use(express.urlencoded({ extended: true }))
   .set("view engine", "ejs")
   .set("views", "views")
   
-  
-  .get("/sha1", (r) => {
-    r.res.render("./sha", { value: "" });
-  })
   .post("/sha1", (r) => {
     r.res.render("./sha", {
       value: crypto.createHash("sha1").update(r.body.inp).digest("hex"),
     });
   })
+  
+  .get("/sha1", (r) => {
+    r.res.render("./sha", { value: "" });
+  })
+  
   .all("/login", (r) => r.res.send("bao-vn"))
   .listen(process.env.PORT || 3000, () => {
     console.log("Server is working");
