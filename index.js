@@ -46,7 +46,7 @@ app
   .set("view engine", "ejs")
   .set("views", "views")
   
-  .post("/sha1", async(r) => {
+  .post("/sha1", (r) => {
     r.res.render("./sha", {
       //value: crypto.createHash("sha1").update(r.body.inp).digest("hex"),
 	  value: hashCode(r.body.inp),
