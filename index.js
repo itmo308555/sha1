@@ -8,7 +8,7 @@ import crypto from "crypto";
 
 const app = express();
 
-/*
+
 async function sha256(message) {
     // encode as UTF-8
     const msgBuffer = new TextEncoder().encode(message);                    
@@ -20,7 +20,7 @@ async function sha256(message) {
     const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
     return hashHex;
 }
-*/
+
 
 /*
 const cyrb53 = function(str, seed = 0) {
@@ -37,23 +37,23 @@ const cyrb53 = function(str, seed = 0) {
 */
 
 
-const hashCode = function(s){
+/*const hashCode = function(s){
   return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
-}
+}*/
 
 app
   .use(express.urlencoded({ extended: true }))
   .set("view engine", "ejs")
   .set("views", "views")
   
-  .post("/sha1", (r) => {
+  .post("/sha1", async(r) => {
     r.res.render("./sha", {
       //value: crypto.createHash("sha1").update(r.body.inp).digest("hex"),
 	  value: hashCode(r.body.inp),
     });
   })
   
-  .get("/sha1", (r) => {
+  .get("/sha1", async(r) => {
     r.res.render("./sha", { value: "" });
   })
   
