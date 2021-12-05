@@ -9,6 +9,18 @@ import crypto from "crypto";
 const app = express();
 
 
+async function sha256(message) {
+    // encode as UTF-8
+    const msgBuffer = new TextEncoder().encode(message);                    
+    // hash the message
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    // convert ArrayBuffer to Array
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    // convert bytes to hex string                  
+    const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+    return hashHex;
+}
+
 
 app
   .use(express.urlencoded({ extended: true }))
@@ -17,7 +29,8 @@ app
   
   .post("/sha1", (r) => {
     r.res.render("./sha", {
-      value: crypto.createHash("sha1").update(r.body.inp).digest("hex"),
+      //value: crypto.createHash("sha1").update(r.body.inp).digest("hex"),
+	  value: sha256(r.body.inp),
     });
   })
   
