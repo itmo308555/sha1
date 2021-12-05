@@ -16,7 +16,7 @@ app
   .use(express.urlencoded({ extended: true }))
   .set("view engine", "ejs")
   .set("views", "views")
-  .get("/", (r) => r.res.render("./index"))
+  
   
   .get("/sha1", (r) => {
     r.res.render("./sha", { value: "" });
